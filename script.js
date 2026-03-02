@@ -1,66 +1,108 @@
-console.log("JS connected"); // heart beat of code
-const input = document.getElementById("taskInput");  // by this we give the control of html element to java sript 
-const button = document.getElementById("addbtn");
-const list = document.getElementById("tasklist");
+// ===== get elements from HTML =====
+const input = document.getElementById("taskInput"); // textbox
+const addBtn = document.getElementById("addBtn");   // add button
+const list = document.getElementById("taskList");   // <ul> list
 
-button.addEventListener("click", addTask); // by this we can take input by one click on web site.
+// our REAL data (main database)
+let tasks = [];
 
 
-input.addEventListener("keypress", function(event){
-    if(event.key === "Enter"){                             // this piece of code is for: when we type "Enter" the task will be added
-        addTask();                           
+// ===== when Add button clicked =====
+addBtn.addEventListener("click", addTask);
+
+
+// ===== when Enter key pressed =====
+input.addEventListener("keypress", function(e){
+    if(e.key === "Enter"){
+        addTask();
     }
 });
 
 
-function addTask() {
+// ================= ADD TASK =================
+function addTask(){
 
-    if(input.value === ""){
-        alert("Write something!"); // id we cannot write any thing this will tell us write some this 
-        return; // this will stop the code here only
+    // stop empty input
+    if(input.value.trim() === ""){
+        alert("Please write a task");
+        return;
     }
 
-    const li = document.createElement("li"); // this will make the new list 
-    li.textContent = input.value;
+    // add task into array
+    tasks.push(input.value);
 
-    const delBtn = document.createElement("button"); // here we have added the delete button if we have to delete the task
-    delBtn.textContent = "Delete";
-
-    delBtn.onclick = function(){
-        li.remove(); // if we delete the task list will be remove 
-        saveData();  // the data will be save 
-    }
-
-    li.appendChild(delBtn); // we put deleted button inside 
-    list.appendChild(li); 
-
-    input.value = ""; // after reload the block will remain empty 
-
+    // save into browser memory
     saveData();
+
+    // redraw screen
+    showTasks();
+
+    // clear textbox
+    input.value = "";
 }
 
+
+// ================= SAVE DATA =================
 function saveData(){
-    localStorage.setItem("tasks", list.innerHTML); // this will store data at broswer
+
+    // localStorage stores only TEXT
+    // convert array → text
+    localStorage.setItem("tasks", JSON.stringify(tasks));
 }
 
-function showData(){
-    const data = localStorage.getItem("tasks");
 
-    if(data){
-        list.innerHTML = data;
-        attachDeleteEvents();
-    }
-}
+// ================= SHOW TASKS =================
+function showTasks(){
 
-function attachDeleteEvents(){
-    const deleteButtons = document.querySelectorAll("#tasklist button");
+    // clear screen first
+    list.innerHTML = "";
 
-    deleteButtons.forEach(function(btn){
-        btn.onclick = function(){
-            btn.parentElement.remove();
+    // loop through array
+    tasks.forEach(function(task, index){
+
+        // create <li>
+        const li = document.createElement("li");
+        li.textContent = task;
+
+        // create Delete button
+        const delBtn = document.createElement("button");
+        delBtn.textContent = "Delete";
+        delBtn.classList.add("deleteBtn");
+
+        // delete task
+        delBtn.onclick = function(){
+
+            // remove from array
+            tasks.splice(index,1);
+
+            // update storage
             saveData();
-        }
+
+            // update screen
+            showTasks();
+        };
+
+        // put button inside li
+        li.appendChild(delBtn);
+
+        // put li inside ul
+        list.appendChild(li);
     });
 }
 
-showData(); // this is will show privious task
+
+// ================= LOAD AFTER REFRESH =================
+function loadTasks(){
+
+    // get saved data
+    let stored = localStorage.getItem("tasks");
+
+    // if data exists
+    if(stored){
+        tasks = JSON.parse(stored); // text → array
+        showTasks();                // show on screen
+    }
+}
+
+// run when page opens
+loadTasks();

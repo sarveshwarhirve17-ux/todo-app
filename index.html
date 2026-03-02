@@ -2,20 +2,42 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+
+    <!-- makes mobile responsive -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>daily task</title>
+
+    <title>Daily Task</title>
+
+    <!-- connecting CSS file -->
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-<h1>Daily Task</h1>
+    <!-- Main Card -->
+    <div class="container">
 
-<input id="taskInput" type="text" placeholder="Enter task"> 
+        <!-- App title -->
+        <h1>Daily Task</h1>
 
-<button id="addbtn">Add</button>
+        <!-- input area (textbox + button) -->
+        <div class="inputArea">
 
-<ul id="tasklist"></ul>
+            <!-- user will type task here -->
+            <input 
+                type="text" 
+                id="taskInput" 
+                placeholder="Enter task">
 
-<script src="script.js" defer></script>
+            <!-- Add button -->
+            <button id="addBtn">Add</button>
+        </div>
 
+        <!-- list where tasks will appear -->
+        <ul id="taskList"></ul>
+
+    </div>
+
+    <!-- connecting JavaScript file -->
+    <script src="script.js"></script>
 </body>
 </html>

@@ -52,20 +52,36 @@ function showTasks(){
 
         checkbox.onchange = function(){
 
-        if(checkbox.checked){
-            li.style.textDecoration = "line-through"; // task completed
-        } 
-        else{
-            li.style.textDecoration = "none"; // task not completed
-        }
+            if(checkbox.checked){
+                li.style.textDecoration = "line-through";
+            } 
+            else{
+                li.style.textDecoration = "none";
+            }
 
-    };
-        // add checkbox to li
+        };
+
         li.appendChild(checkbox);
 
-        // add task text
+        // task text
         li.append(" " + task);
 
+        // ===== EDIT BUTTON =====
+        const editBtn = document.createElement("button");
+        editBtn.textContent = "Edit";
+
+        editBtn.onclick = function(){
+            const newTask = prompt("Edit your task:", task);
+            if(newTask){
+                tasks[index] = newTask;
+                saveData();
+                showTasks();
+            }
+        };
+
+        li.appendChild(editBtn);
+
+        // ===== DELETE BUTTON =====
         const delBtn = document.createElement("button");
         delBtn.textContent = "Delete";
         delBtn.classList.add("deleteBtn");
@@ -77,6 +93,7 @@ function showTasks(){
         };
 
         li.appendChild(delBtn);
+
         list.appendChild(li);
     });
 }
@@ -93,5 +110,6 @@ function loadTasks(){
 
 // run on page load
 loadTasks();
-// its takes auto focus
-input.autofocus(); 
+
+// auto focus on input
+input.focus();

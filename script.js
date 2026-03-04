@@ -1,108 +1,97 @@
 // ===== get elements from HTML =====
-const input = document.getElementById("taskInput"); // textbox
-const addBtn = document.getElementById("addBtn");   // add button
-const list = document.getElementById("taskList");   // <ul> list
+const input = document.getElementById("taskInput");
+const addBtn = document.getElementById("addBtn");
+const list = document.getElementById("taskList");
 
-// our REAL data (main database)
+// our main data array
 let tasks = [];
 
-
-// ===== when Add button clicked =====
+// button click
 addBtn.addEventListener("click", addTask);
 
-
-// ===== when Enter key pressed =====
+// Enter key press
 input.addEventListener("keypress", function(e){
     if(e.key === "Enter"){
         addTask();
     }
 });
 
-
-// ================= ADD TASK =================
+// ===== ADD TASK =====
 function addTask(){
 
-    // stop empty input
     if(input.value.trim() === ""){
         alert("Please write a task");
         return;
     }
 
-    // add task into array
     tasks.push(input.value);
 
-    // save into browser memory
     saveData();
-
-    // redraw screen
     showTasks();
 
-    // clear textbox
     input.value = "";
 }
 
-
-// ================= SAVE DATA =================
+// ===== SAVE DATA =====
 function saveData(){
-
-    // localStorage stores only TEXT
-    // convert array → text
     localStorage.setItem("tasks", JSON.stringify(tasks));
 }
 
-
-// ================= SHOW TASKS =================
+// ===== SHOW TASKS =====
 function showTasks(){
 
-    // clear screen first
     list.innerHTML = "";
 
-    // loop through array
     tasks.forEach(function(task, index){
 
-        // create <li>
         const li = document.createElement("li");
-        li.textContent = task;
 
-        // create Delete button
+        // create checkbox
+        const checkbox = document.createElement("input");
+        checkbox.type = "checkbox";
+
+        checkbox.onchange = function(){
+
+        if(checkbox.checked){
+            li.style.textDecoration = "line-through"; // task completed
+        } 
+        else{
+            li.style.textDecoration = "none"; // task not completed
+        }
+
+    };
+        // add checkbox to li
+        li.appendChild(checkbox);
+
+        // add task text
+        li.append(" " + task);
+
         const delBtn = document.createElement("button");
         delBtn.textContent = "Delete";
         delBtn.classList.add("deleteBtn");
 
-        // delete task
         delBtn.onclick = function(){
-
-            // remove from array
             tasks.splice(index,1);
-
-            // update storage
             saveData();
-
-            // update screen
             showTasks();
         };
 
-        // put button inside li
         li.appendChild(delBtn);
-
-        // put li inside ul
         list.appendChild(li);
     });
 }
 
-
-// ================= LOAD AFTER REFRESH =================
+// ===== LOAD AFTER REFRESH =====
 function loadTasks(){
-
-    // get saved data
     let stored = localStorage.getItem("tasks");
 
-    // if data exists
     if(stored){
-        tasks = JSON.parse(stored); // text → array
-        showTasks();                // show on screen
+        tasks = JSON.parse(stored);
+        showTasks();
     }
 }
 
-// run when page opens
+// run on page load
 loadTasks();
+// its takes auto focus
+input.autofocus(); 

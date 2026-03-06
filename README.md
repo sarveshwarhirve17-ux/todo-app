@@ -2,11 +2,14 @@
 
 My first JavaScript project.
 
-Features:
+## Features
+
 - Add task
+- Edit task
 - Delete task
-- Save after refresh (localStorage)
-- Enter key support
+- Mark task as completed
+- Save tasks using localStorage
+- Task counter (Total / Completed)
 
 Tech: HTML, CSS, JavaScript
 

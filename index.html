@@ -1,45 +1,53 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
+<meta charset="UTF-8">
+<title>Todo App</title>
 
-    <!-- makes mobile responsive -->
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!-- connect CSS -->
+<link rel="stylesheet" href="style.css">
 
-    <title>Daily Task</title>
-
-    <!-- connecting CSS file -->
-    <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
 
-    <!-- Main Card -->
-    <div class="container">
+<!-- Main card -->
+<div class="container">
 
-        <!-- App title -->
-        <h1>Daily Task</h1>
+<h1>Daily Task</h1>
 
-        <p id="taskCounter">Total: 0 | Completed: 0</p> 
+<!-- task counter -->
+<p id="taskCounter">Total: 0 | Completed: 0</p>
 
-        <!-- input area (textbox + button) -->
-        <div class="inputArea">
+<!-- FILTER BUTTONS -->
+<div class="filters">
+<button class="filterBtn" onclick="filterTasks('all', event)">All</button>
+<button class="filterBtn" onclick="filterTasks('completed', event)">Completed</button>
+<button class="filterBtn" onclick="filterTasks('pending', event)">Pending</button>
+</div>
 
-            <!-- user will type task here -->
-            <input 
-                type="text" 
-                id="taskInput"  
-                placeholder="Enter task" autofocus>
+<!-- input area -->
+<div class="inputArea">
 
-            <!-- Add button -->
-            <button id="addBtn">Add</button>
-        </div>
+<!-- task input -->
+<input
+type="text"
+id="taskInput"
+placeholder="Enter task"
+autofocus>
 
-        <!-- list where tasks will appear -->
-        <ul id="taskList"></ul>
+<!-- add button -->
+<button id="addBtn">Add</button>
 
-    </div>
+</div>
 
-    <!-- connecting JavaScript file -->
-    <script src="script.js"></script>
+<!-- task list -->
+<ul id="taskList"></ul>
+
+</div>
+
+<!-- connect JS -->
+<script src="script.js"></script>
+
 </body>
 </html>

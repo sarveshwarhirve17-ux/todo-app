@@ -1,190 +1,198 @@
-// ===== GET ELEMENTS FROM HTML =====
+// ===== GET HTML ELEMENTS =====
 
-// element showing task counter
+// task counter
 const counter = document.getElementById("taskCounter");
 
-// input field
+// input box
 const input = document.getElementById("taskInput");
 
 // add button
 const addBtn = document.getElementById("addBtn");
 
-// task list container
+// task list
 const list = document.getElementById("taskList");
 
 
-// ===== MAIN ARRAY TO STORE TASKS =====
-// each task will be an object like:
-// { text: "Study", completed: false }
+// ===== MAIN TASK ARRAY =====
 let tasks = [];
 
+// current filter
+let filter = "all";
 
-// ===== BUTTON CLICK EVENT =====
+
+// ===== ADD BUTTON EVENT =====
 addBtn.addEventListener("click", addTask);
 
 
 // ===== ENTER KEY EVENT =====
 input.addEventListener("keypress", function(e){
-    if(e.key === "Enter"){
-        addTask();
-    }
+if(e.key === "Enter"){
+addTask();
+}
 });
 
 
-// ===== FUNCTION TO ADD TASK =====
+// ===== ADD TASK =====
 function addTask(){
 
-    // stop if input empty
-    if(input.value.trim() === ""){
-        alert("Please write a task");
-        return;
-    }
+// prevent empty task
+if(input.value.trim() === ""){
+alert("Please write a task");
+return;
+}
 
-    // add new task object into array
-    tasks.push({
-        text: input.value,
-        completed: false
-    });
+// push task object
+tasks.push({
+text: input.value,
+completed:false
+});
 
-    // save tasks in browser storage
-    saveData();
+// save in browser
+saveData();
 
-    // redraw task list
-    showTasks();
+// redraw UI
+showTasks();
 
-    // clear input box
-    input.value = "";
+// clear input
+input.value = "";
 }
 
 
 // ===== SAVE DATA IN LOCAL STORAGE =====
 function saveData(){
 
-    // convert array → string
-    localStorage.setItem("tasks", JSON.stringify(tasks));
+// convert array → string
+localStorage.setItem("tasks", JSON.stringify(tasks));
 
 }
 
 
-// ===== DISPLAY TASKS ON SCREEN =====
+// ===== FILTER BUTTON CLICK =====
+function filterTasks(type, event){
+
+// change filter
+filter = type;
+
+// remove active class
+const buttons = document.querySelectorAll(".filterBtn");
+buttons.forEach(function(btn){
+btn.classList.remove("active");
+});
+
+// highlight clicked button
+event.target.classList.add("active");
+
+// redraw tasks
+showTasks();
+}
+
+
+// ===== SHOW TASKS =====
 function showTasks(){
 
-    // clear previous list
-    list.innerHTML = "";
+// clear list
+list.innerHTML = "";
 
-    // loop through tasks array
-    tasks.forEach(function(task, index){
+// loop tasks
+tasks.forEach(function(task, index){
 
-        // create list item
-        const li = document.createElement("li");
-
-
-        // ===== CREATE CHECKBOX =====
-        const checkbox = document.createElement("input");
-        checkbox.type = "checkbox";
-
-        // checkbox state based on task.completed
-        checkbox.checked = task.completed;
-
-        // when checkbox changes
-        checkbox.onchange = function(){
-
-            // update completed value
-            task.completed = checkbox.checked;
-
-            // save updated data
-            saveData();
-
-            // apply line-through style
-            if(checkbox.checked){
-                li.style.textDecoration = "line-through";
-            } else {
-                li.style.textDecoration = "none";
-            }
-
-            // update counter
-            updateCounter();
-        };
-
-        // add checkbox to li
-        li.appendChild(checkbox);
-
-
-        // ===== TASK TEXT =====
-        li.append(" " + task.text);
-
-
-        // ===== EDIT BUTTON =====
-        const editBtn = document.createElement("button");
-        editBtn.textContent = "Edit";
-
-        editBtn.onclick = function(){
-
-            // ask user for new text
-            const newTask = prompt("Edit your task:", task.text);
-
-            if(newTask){
-                tasks[index].text = newTask;
-                saveData();
-                showTasks();
-            }
-
-        };
-
-        li.appendChild(editBtn);
-
-
-        // ===== DELETE BUTTON =====
-        const delBtn = document.createElement("button");
-        delBtn.textContent = "Delete";
-        delBtn.classList.add("deleteBtn");
-
-        delBtn.onclick = function(){
-
-            // remove task from array
-            tasks.splice(index,1);
-
-            saveData();
-            showTasks();
-        };
-
-        li.appendChild(delBtn);
-
-
-        // add li to ul
-        list.appendChild(li);
-
-    });
-
-    // update counter after rendering tasks
-    updateCounter();
+// filter logic
+if(filter === "completed" && !task.completed){
+return;
 }
 
+if(filter === "pending" && task.completed){
+return;
+}
 
-// ===== UPDATE TASK COUNTER =====
-function updateCounter(){
+// create list item
+const li = document.createElement("li");
 
-    // count completed tasks
-    let completed = tasks.filter(function(task){
-        return task.completed;
-    }).length;
+// checkbox
+const checkbox = document.createElement("input");
+checkbox.type = "checkbox";
+checkbox.checked = task.completed;
 
-    // show counter text
-    counter.textContent = "Total: " + tasks.length + " | Completed: " + completed;
+// checkbox change
+checkbox.onchange = function(){
+
+task.completed = checkbox.checked;
+
+saveData();
+showTasks();
+
+};
+
+li.appendChild(checkbox);
+
+// task text
+li.append(" " + task.text);
+
+
+// EDIT BUTTON
+const editBtn = document.createElement("button");
+editBtn.textContent = "Edit";
+
+editBtn.onclick = function(){
+
+const newTask = prompt("Edit your task:", task.text);
+
+if(newTask){
+tasks[index].text = newTask;
+
+saveData();
+showTasks();
+}
+
+};
+
+li.appendChild(editBtn);
+
+
+// DELETE BUTTON
+const delBtn = document.createElement("button");
+delBtn.textContent = "Delete";
+delBtn.classList.add("deleteBtn");
+
+delBtn.onclick = function(){
+
+tasks.splice(index,1);
+
+saveData();
+showTasks();
+
+};
+
+li.appendChild(delBtn);
+
+// add li to ul
+list.appendChild(li);
+
+});
+
+// ===== UPDATE COUNTER =====
+
+let total = tasks.length;
+
+let completed = tasks.filter(function(task){
+return task.completed;
+}).length;
+
+counter.textContent =
+"Total: " + total + " | Completed: " + completed;
 
 }
 
 
-// ===== LOAD TASKS AFTER PAGE REFRESH =====
+// ===== LOAD TASKS AFTER REFRESH =====
 function loadTasks(){
 
-    // get stored tasks
-    let stored = localStorage.getItem("tasks");
+let stored = localStorage.getItem("tasks");
 
-    if(stored){
-        tasks = JSON.parse(stored);
-        showTasks();
-    }
+if(stored){
+tasks = JSON.parse(stored);
+showTasks();
+}
 
 }
 
@@ -193,5 +201,5 @@ function loadTasks(){
 loadTasks();
 
 
-// focus cursor in input field
+// focus input
 input.focus();

@@ -1,52 +1,41 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
+
 <head>
-<meta charset="UTF-8">
-<title>Todo App</title>
-
-<!-- connect CSS -->
-<link rel="stylesheet" href="style.css">
-
+    <title>Daily Task</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
-<!-- Main card -->
 <div class="container">
 
-<h1>Daily Task</h1>
+    <h1>Daily Task</h1>
 
-<!-- task counter -->
-<p id="taskCounter">Total: 0 | Completed: 0</p>
+    <!-- counter -->
+    <p id="taskCounter">Total: 0 | Completed: 0</p>
 
-<!-- FILTER BUTTONS -->
-<div class="filters">
-<button class="filterBtn" onclick="filterTasks('all', event)">All</button>
-<button class="filterBtn" onclick="filterTasks('completed', event)">Completed</button>
-<button class="filterBtn" onclick="filterTasks('pending', event)">Pending</button>
-</div>
+    <!-- filter buttons -->
+    <div class="filter">
+        <button onclick="filterTasks('all')">All</button>
+        <button onclick="filterTasks('completed')">Completed</button>
+        <button onclick="filterTasks('pending')">Pending</button>
+    </div>
 
-<!-- input area -->
-<div class="inputArea">
+    <!-- search -->
+    <input id="searchInput" placeholder="Search task">
 
-<!-- task input -->
-<input
-type="text"
-id="taskInput"
-placeholder="Enter task"
-autofocus>
+    <!-- input -->
+    <div class="inputArea">
+        <input id="taskInput" placeholder="Enter task">
+        <button id="addBtn">Add</button>
+    </div>
 
-<!-- add button -->
-<button id="addBtn">Add</button>
-
-</div>
-
-<!-- task list -->
-<ul id="taskList"></ul>
+    <!-- task list -->
+    <ul id="taskList"></ul>
 
 </div>
 
-<!-- connect JS -->
 <script src="script.js"></script>
 
 </body>

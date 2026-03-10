@@ -15,6 +15,7 @@ My first JavaScript project.
 - Search tasks
 - Filter tasks (All / Completed / Pending)
 - Local Storage
+- Priority system (High / Medium / Low) Color coded priorities 
 
 Tech: HTML, CSS, JavaScript
 

@@ -1,9 +1,8 @@
-/* page background */
+/* ===== PAGE STYLE ===== */
 body{
 font-family: Arial, sans-serif;
-background:#f0f0f0;
+background:#eef2f7;
 
-/* center the app */
 display:flex;
 justify-content:center;
 align-items:center;
@@ -12,81 +11,145 @@ height:100vh;
 margin:0;
 }
 
-/* main card */
+
+/* ===== MAIN CONTAINER ===== */
 .container{
 background:white;
 padding:25px;
-border-radius:10px;
+border-radius:15px;
 width:380px;
-box-shadow:0 0 10px rgba(0,0,0,0.1);
+box-shadow:0 10px 25px rgba(0,0,0,0.15);
 }
 
-/* input area */
+
+/* ===== TITLE ===== */
+h1{
+text-align:center;
+margin-bottom:15px;
+}
+
+
+/* ===== COUNTER ===== */
+#taskCounter{
+text-align:center;
+margin-bottom:10px;
+color:#555;
+}
+
+
+/* ===== FILTER BUTTONS ===== */
+.filter{
+display:flex;
+justify-content:center;
+gap:5px;
+margin-bottom:10px;
+}
+
+.filter button{
+background:#ddd;
+}
+
+.filter button:hover{
+background:#bbb;
+}
+
+
+/* ===== SEARCH INPUT ===== */
+#searchInput{
+margin-bottom:10px;
+}
+
+
+/* ===== INPUT AREA ===== */
 .inputArea{
 display:flex;
-gap:10px;
-margin-top:10px;
+gap:8px;
+margin-bottom:10px;
 align-items:center;
 }
 
-/* input field */
+
+/* ===== INPUT ===== */
 input{
+padding:8px;
+border-radius:6px;
+border:1px solid #ccc;
 flex:1;
+}
+
+
+/* ===== PRIORITY SELECT ===== */
+#priority{
 padding:6px;
-min-width:0;
+border-radius:6px;
 }
 
-/* add button */
-#addBtn{
-background:#2e7d32;
-color:white;
-border:none;
+
+/* ===== BUTTON ===== */
+button{
 padding:6px 12px;
-cursor:pointer;
-}
-
-/* task list */
-li{
-margin-top:10px;
-display:flex;
-align-items:center;
-gap:10px;
-}
-
-/* delete button */
-.deleteBtn{
-background:#e53935;
-color:white;
 border:none;
-padding:4px 8px;
+border-radius:6px;
 cursor:pointer;
-}
-
-/* filter buttons */
-.filters{
-margin:10px 0;
-}
-
-.filterBtn{
-padding:5px 10px;
-margin-right:5px;
-cursor:pointer;
-}
-
-/* active filter button */
-.active{
 background:#4CAF50;
 color:white;
 }
 
-li{
-display:flex;
-align-items:center;
-gap:10px;
-justify-content:space-between;
+button:hover{
+opacity:0.8;
 }
 
-/* dragging */
+
+/* ===== TASK LIST ===== */
+ul{
+list-style:none;
+padding:0;
+margin:0;
+}
+
+
+/* ===== TASK ITEM ===== */
+li{
+background:#f5f5f5;
+padding:8px;
+margin-top:8px;
+border-radius:6px;
+
+display:flex;
+align-items:center;
+justify-content:space-between;
+gap:10px;
+}
+
+
+/* ===== TASK TEXT ===== */
+.task-text{
+flex:1;
+}
+
+
+/* ===== DELETE BUTTON ===== */
+.deleteBtn{
+background:red;
+}
+
+
+/* ===== DRAGGING EFFECT ===== */
 .dragging{
-    opacity: 0.5;
+opacity:0.5;
+}
+
+/* dark mode */ 
+
+.dark{
+background:#121212;
+color:white;
+}
+
+.dark .container{
+background:#1e1e1e;
+}
+
+.dark li{
+background:#2c2c2c;
 }

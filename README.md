@@ -6,9 +6,6 @@ A productivity Todo application built with HTML,
 
 ## Features
 
-
-## Features
-
 - Add tasks
 - Edit tasks
 - Delete tasks
@@ -18,6 +15,7 @@ A productivity Todo application built with HTML,
 - Filter tasks (All / Completed / Pending)
 - Local Storage
 - Priority system (High / Medium / Low) Color coded priorities 
+- Drag & Drop task recording 
 
 Tech: HTML, CSS, JavaScript
 

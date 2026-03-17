@@ -16,6 +16,7 @@ A productivity Todo application built with HTML,
 - Local Storage
 - Priority system (High / Medium / Low) Color coded priorities 
 - Drag & Drop task recording 
+- Dark Mode
 
 Tech: HTML, CSS, JavaScript
 

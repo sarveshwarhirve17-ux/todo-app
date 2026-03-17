@@ -85,3 +85,8 @@ align-items:center;
 gap:10px;
 justify-content:space-between;
 }
+
+/* dragging */
+.dragging{
+    opacity: 0.5;
+}

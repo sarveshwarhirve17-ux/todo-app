@@ -8,35 +8,41 @@
 
 <body>
 
-<div class="container">
+    <div class="container">
 
-    <h1>Daily Task</h1>
+        <h1>Daily Task</h1>
 
-    <!-- counter -->
-    <p id="taskCounter">Total: 0 | Completed: 0</p>
+        <!-- counter -->
+        <p id="taskCounter">Total: 0 | Completed: 0</p>
 
-    <!-- filter buttons -->
-    <div class="filter">
-        <button onclick="filterTasks('all')">All</button>
-        <button onclick="filterTasks('completed')">Completed</button>
-        <button onclick="filterTasks('pending')">Pending</button>
+        <!-- filter buttons -->
+        <div class="filter">
+            <button onclick="filterTasks('all')">All</button>
+            <button onclick="filterTasks('completed')">Completed</button>
+            <button onclick="filterTasks('pending')">Pending</button>
+        </div>
+
+        <!-- search -->
+        <input id="searchInput" placeholder="Search task">
+
+        <!-- input -->
+        <div class="inputArea">
+            <input id="taskInput" placeholder="Enter task">
+            <select id="priority">
+                <option value="Low">Low</option>
+                <option value="Medium">Medium</option>
+                <option value="High">High</option>
+            </select>
+            <button id="addBtn">Add</button>
+        </div>
+
+        <!-- task list -->
+        <ul id="taskList"></ul>
+
     </div>
 
-    <!-- search -->
-    <input id="searchInput" placeholder="Search task">
-
-    <!-- input -->
-    <div class="inputArea">
-        <input id="taskInput" placeholder="Enter task">
-        <button id="addBtn">Add</button>
-    </div>
-
-    <!-- task list -->
-    <ul id="taskList"></ul>
-
-</div>
-
-<script src="script.js"></script>
+    <script src="script.js"></script>
 
 </body>
+
 </html>

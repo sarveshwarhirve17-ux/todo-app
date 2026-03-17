@@ -1,6 +1,8 @@
 # Todo App (Mission 60Days)
 
-My first JavaScript project.
+A productivity Todo application built with HTML,
+ CSS, and JavaScript featuring search, filters, priority
+  system, and local storage.
 
 ## Features
 
